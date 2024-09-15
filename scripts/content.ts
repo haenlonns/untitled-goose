@@ -4,6 +4,7 @@ const goose_idle = chrome.runtime.getURL("img/goose_idle.gif");
 const goose_run = chrome.runtime.getURL("img/goose_run.gif");
 const goose_chomp = chrome.runtime.getURL("img/goose_chomp.gif");
 const goose_dangle = chrome.runtime.getURL("img/goose_dangling.gif");
+const goose_poop = chrome.runtime.getURL("img/goose_walk_poop.gif");
 
 image.src = goose_idle;
 image.alt = "GOOSE";
