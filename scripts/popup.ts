@@ -137,6 +137,13 @@ function updateClock() {
 }
 
 function switchMode(mode: "pomodoro" | "shortBreak" | "longBreak") {
+	
+	if (mode === "pomodoro") {
+		document.dispatchEvent(pomodoroEvent);
+	} else {
+		document.dispatchEvent(breakEvent);
+	}
+
 	timer.mode = mode;
 	timer.remainingTime = {
 		total: timer[mode] * 60,
@@ -149,12 +156,6 @@ function switchMode(mode: "pomodoro" | "shortBreak" | "longBreak") {
 	document.body.style.backgroundColor = `var(--${mode})`;
 
 	updateClock();
-
-	if (mode === "pomodoro") {
-		document.dispatchEvent(pomodoroEvent);
-	} else {
-		document.dispatchEvent(breakEvent);
-	}
 }
 
 function handleMode(event) {
