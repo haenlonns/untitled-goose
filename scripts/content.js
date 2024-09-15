@@ -3,10 +3,10 @@ image.src = chrome.runtime.getURL("img/goose_chomp.gif");
 image.alt = "GOOSE RUNNING";
 
 image.style.position = "absolute";
-image.style.top = "100px";
-image.style.left = "100px";
-image.style.width = "150px";
-image.style.cursor = "move";
+image.style.top = "50vh";
+image.style.left = "50vw";
+image.style.width = "100px";
+image.style.cursor = "default";
 image.style.zIndex = "9999999999999999";
 
 image.addEventListener("mousedown", (event) => {
