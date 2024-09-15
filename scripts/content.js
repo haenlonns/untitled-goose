@@ -1,38 +1,38 @@
-const image = document.createElement('img');
-image.src = chrome.runtime.getURL('img/goose_chomp.gif');
-image.alt = 'GOOSE RUNNING';
+const image = document.createElement("img");
+image.src = chrome.runtime.getURL("img/goose_chomp.gif");
+image.alt = "GOOSE RUNNING";
 
-image.style.position = 'absolute';
-image.style.top = '100px';
-image.style.left = '100px';
-image.style.width = '150px';
-image.style.cursor = 'move';
-image.style.zIndex = '9999999999999999';
+image.style.position = "absolute";
+image.style.top = "100px";
+image.style.left = "100px";
+image.style.width = "150px";
+image.style.cursor = "move";
+image.style.zIndex = "9999999999999999";
 
-image.addEventListener('mousedown', (event) => {
-    event.preventDefault();
-    
-    let shiftX = event.clientX - image.getBoundingClientRect().left;
-    let shiftY = event.clientY - image.getBoundingClientRect().top;
+image.addEventListener("mousedown", (event) => {
+  event.preventDefault();
 
-    function moveAt(pageX, pageY) {
-        image.style.left = pageX - shiftX + 'px';
-        image.style.top  = pageY - shiftY + 'px';
-    }
+  let shiftX = event.clientX - image.getBoundingClientRect().left;
+  let shiftY = event.clientY - image.getBoundingClientRect().top;
 
-    function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
-    }
+  function moveAt(pageX, pageY) {
+    image.style.left = pageX - shiftX + "px";
+    image.style.top = pageY - shiftY + "px";
+  }
 
-    document.addEventListener('mousemove', onMouseMove);
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
 
-    image.addEventListener('mouseup', () => {
-        document.removeEventListener('mousemove', onMouseMove);
-    });
+  document.addEventListener("mousemove", onMouseMove);
+
+  image.addEventListener("mouseup", () => {
+    document.removeEventListener("mousemove", onMouseMove);
+  });
 });
 
-image.ondragstart = function() {
-    return false;
+image.ondragstart = function () {
+  return false;
 };
 
 document.body.appendChild(image);

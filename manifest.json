@@ -1,22 +1,22 @@
 {
-	"manifest_version": 3,
-	"name": "Untitled Goose",
-	"version": "0.69",
-	"description": "GOOOOOOSE",
-	"content_scripts": [
-		{
-			"js": ["scripts/content.js"],
-			"matches": ["https://*/*", "http://*/*"]
-		}
-	],
-	"web_accessible_resources": [
-		{
-			"resources": ["img/goose_chomp.gif", "img/goose_run.gif"],
-			"matches": ["https://*/*"]
-		}
-	],
-	"action": {
-		"default_popup": "popup.html",
-		"default_icon": "icon.png"
-	}
+  "manifest_version": 3,
+  "name": "Untitled Goose",
+  "version": "0.69",
+  "description": "GOOOOOOSE",
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": ["https://*/*", "http://*/*"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["img/goose_chomp.gif", "img/goose_run.gif"],
+      "matches": ["https://*/*"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  }
 }
