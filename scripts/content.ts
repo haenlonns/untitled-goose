@@ -1,3 +1,8 @@
+interface GeeseCoords {
+  top?: string;
+  left?: string;
+}
+
 const image = document.createElement("img");
 
 const goose_idle = chrome.runtime.getURL("img/goose_idle.gif");
@@ -17,54 +22,77 @@ image.style.zIndex = "9999999999999999";
 const defaultCoords = { top: "50vh", left: "50vw" };
 
 function getGeeseCoords(): Promise<{ top: string; left: string }> {
-	return new Promise((resolve) => {
-		chrome.storage.local.get(["geeseCoords"], (result) => {
-			const geeseCoords = result.geeseCoords || defaultCoords;
-			resolve(geeseCoords); // Resolve the promise with the geeseCoords value
-		});
-	});
+  return new Promise((resolve) => {
+    chrome.storage.local.get(["geeseCoords"], (result) => {
+      const geeseCoords = result.geeseCoords || defaultCoords;
+      resolve(geeseCoords); // Resolve the promise with the geeseCoords value
+    });
+  });
 }
 
 async function setGeeseCoords() {
-	const geeseCoords = await getGeeseCoords(); // Await the value and assign it to a 'const'
-	image.style.top = geeseCoords.top;
-	image.style.left = geeseCoords.left;
-	console.log("Geese Coordinates:", geeseCoords);
+  const geeseCoords = await getGeeseCoords(); // Await the value and assign it to a 'const'
+  image.style.top = geeseCoords.top;
+  image.style.left = geeseCoords.left;
+  console.log("Geese Coordinates:", geeseCoords);
 }
 
 setGeeseCoords();
 
+const IDLING = "IDLING";
+const HUNT = "HUNT";
+
+let gooseMode = IDLING;
+
+document.addEventListener(
+  "pomodoroEvent",
+  (event: CustomEvent<EventDetail>) => {
+    gooseMode = IDLING;
+    console.log("Message: Goose Idling");
+  }
+);
+
+document.addEventListener("breakEvent", (event: CustomEvent<EventDetail>) => {
+  gooseMode = HUNT;
+  console.log("Message: Goose Hunt");
+});
+
 image.addEventListener("mousedown", (event) => {
-	image.src = goose_dangle;
-	event.preventDefault();
 
-	let shiftX = event.clientX - image.getBoundingClientRect().left;
-	let shiftY = event.clientY - image.getBoundingClientRect().top;
+  if (gooseMode === HUNT) {
+    return;
+  }
 
-	function moveAt(pageX, pageY) {
-		image.style.left = pageX - shiftX + "px";
-		image.style.top = pageY - shiftY + "px";
-	}
+  image.src = goose_dangle;
+  event.preventDefault();
 
-	function onMouseMove(event) {
-		moveAt(event.pageX, event.pageY);
-	}
+  let shiftX = event.clientX - image.getBoundingClientRect().left;
+  let shiftY = event.clientY - image.getBoundingClientRect().top;
 
-	document.addEventListener("mousemove", onMouseMove);
+  function moveAt(pageX, pageY) {
+    image.style.left = pageX - shiftX + "px";
+    image.style.top = pageY - shiftY + "px";
+  }
 
-	image.addEventListener("mouseup", () => {
-		image.src = goose_idle;
-		document.removeEventListener("mousemove", onMouseMove);
-		const geeseCoords = { top: image.style.top, left: image.style.left };
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
 
-		chrome.storage.local.set({ geeseCoords: geeseCoords }, function () {
-			console.log("Geese Coords saved locally: ", geeseCoords);
-		});
-	});
+  document.addEventListener("mousemove", onMouseMove);
+
+  image.addEventListener("mouseup", () => {
+    image.src = goose_idle;
+    document.removeEventListener("mousemove", onMouseMove);
+    const geeseCoords = { top: image.style.top, left: image.style.left };
+
+    chrome.storage.local.set({ geeseCoords: geeseCoords }, function () {
+      console.log("Geese Coords saved locally: ", geeseCoords);
+    });
+  });
 });
 
 image.ondragstart = function () {
-	return false;
+  return false;
 };
 
 document.body.appendChild(image);
