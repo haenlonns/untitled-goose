@@ -11,9 +11,9 @@ html {
 }
 
 :root {
-  --pomodoro: hsl(223, 25%, 40%);
-  --shortBreak: hsl(48, 23%, 40%);
-  --longBreak: hsl(105, 16%, 40%);
+  --pomodoro: rgba(59,94,147, 0.5);
+  --shortBreak: rgba(194,148,49, 0.7);
+  --longBreak: rgba(60,41,76, 0.7);
 }
 
 body {
