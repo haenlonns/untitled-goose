@@ -9,11 +9,29 @@ image.src = goose_idle;
 image.alt = "GOOSE";
 
 image.style.position = "absolute";
-image.style.top = "100px";
-image.style.left = "100px";
-image.style.width = "150px";
+image.style.width = "100px";
 image.style.cursor = "default";
 image.style.zIndex = "9999999999999999";
+
+const defaultCoords = { top: "50vh", left: "50vw" };
+
+function getGeeseCoords(): Promise<{ top: string; left: string }> {
+	return new Promise((resolve) => {
+		chrome.storage.local.get(["geeseCoords"], (result) => {
+			const geeseCoords = result.geeseCoords || defaultCoords;
+			resolve(geeseCoords); // Resolve the promise with the geeseCoords value
+		});
+	});
+}
+
+async function setGeeseCoords() {
+	const geeseCoords = await getGeeseCoords(); // Await the value and assign it to a 'const'
+	image.style.top = geeseCoords.top;
+	image.style.left = geeseCoords.left;
+	console.log("Geese Coordinates:", geeseCoords);
+}
+
+setGeeseCoords();
 
 image.addEventListener("mousedown", (event) => {
 	image.src = goose_dangle;
@@ -36,6 +54,11 @@ image.addEventListener("mousedown", (event) => {
 	image.addEventListener("mouseup", () => {
 		image.src = goose_idle;
 		document.removeEventListener("mousemove", onMouseMove);
+		const geeseCoords = { top: image.style.top, left: image.style.left };
+
+		chrome.storage.local.set({ geeseCoords: geeseCoords }, function () {
+			console.log("Geese Coords saved locally: ", geeseCoords);
+		});
 	});
 });
 

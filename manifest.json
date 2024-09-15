@@ -3,7 +3,10 @@
 	"name": "Untitled Goose",
 	"version": "420.69",
 	"description": "haha honkers go brrrr",
-	"permissions": ["storage"],
+	"permissions": ["tabs", "storage"],
+	"background": {
+		"service_worker": "background.js"
+	},
 	"content_scripts": [
 		{
 			"js": ["scripts/storage.js", "scripts/content.js"],
