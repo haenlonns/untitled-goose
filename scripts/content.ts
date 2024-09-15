@@ -44,17 +44,20 @@ const HUNT = "HUNT";
 
 let gooseMode = IDLING;
 
-document.addEventListener(
-  "pomodoroEvent",
-  (event: CustomEvent<EventDetail>) => {
-    gooseMode = IDLING;
-    console.log("Message: Goose Idling");
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "pomodoroEvent") {
+    gooseMode = IDLING
+    console.log("Pomodoro Event: ", message.message);
+    console.log("Time: ", message.time);
+    // Handle the Pomodoro event here (e.g., start a background task)
   }
-);
 
-document.addEventListener("breakEvent", (event: CustomEvent<EventDetail>) => {
-  gooseMode = HUNT;
-  console.log("Message: Goose Hunt");
+  if (message.type === "breakEvent") {
+    gooseMode = HUNT;
+    console.log("Break Event: ", message.message);
+    console.log("Time: ", message.time);
+    // Handle the break event here (e.g., set a timer for the break)
+  }
 });
 
 image.addEventListener("mousedown", (event) => {
