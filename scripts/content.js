@@ -5,13 +5,13 @@ const goose_chomp = chrome.runtime.getURL("img/goose_chomp.gif");
 image.src = goose_idle;
 image.alt = "GOOSE";
 image.style.position = "absolute";
-image.style.top = "50vh";
-image.style.left = "50vw";
-image.style.width = "100px";
+image.style.top = "100px";
+image.style.left = "100px";
+image.style.width = "150px";
 image.style.cursor = "default";
 image.style.zIndex = "9999999999999999";
 image.addEventListener("mousedown", (event) => {
-    image.src = goose_chomp;
+    image.src = goose_run;
     event.preventDefault();
     let shiftX = event.clientX - image.getBoundingClientRect().left;
     let shiftY = event.clientY - image.getBoundingClientRect().top;

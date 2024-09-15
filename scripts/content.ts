@@ -15,7 +15,7 @@ image.style.cursor = "default";
 image.style.zIndex = "9999999999999999";
 
 image.addEventListener("mousedown", (event) => {
-	image.src = goose_chomp;
+	image.src = goose_run;
 	event.preventDefault();
 
 	let shiftX = event.clientX - image.getBoundingClientRect().left;
