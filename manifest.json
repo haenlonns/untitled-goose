@@ -11,8 +11,12 @@
 	],
 	"web_accessible_resources": [
 		{
-			"resources": ["img/1.2_default_run.gif"],
+			"resources": ["img/goose_chomp.gif", "img/goose_run.gif"],
 			"matches": ["https://*/*"]
 		}
-	]
+	],
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": "icon.png"
+	}
 }
