@@ -1,23 +1,23 @@
-interface EventDetail {
-  message: string;
-  time: Date;
+interface EventDetail_old {
+	message: string;
+	time: Date;
 }
 
-const breakEvent = new CustomEvent<EventDetail>("breakEvent", {
-  detail: {
-    message: "Break Event Triggered",
-    time: new Date(),
-  },
+const breakEvent_old = new CustomEvent<EventDetail_old>("breakEvent", {
+	detail: {
+		message: "Break Event Triggered",
+		time: new Date(),
+	},
 });
 
-const pomodoroEvent = new CustomEvent<EventDetail>("pomodoroEvent", {
-  detail: {
-    message: "Pomodoro Event Triggered",
-    time: new Date(),
-  },
+const pomodoroEvent_old = new CustomEvent<EventDetail_old>("pomodoroEvent", {
+	detail: {
+		message: "Pomodoro Event Triggered",
+		time: new Date(),
+	},
 });
 
-// // Step 3: Add an event listener with proper typing
+//! Step 3: Add an event listener with proper typing
 // document.addEventListener(
 //   "breakEvent",
 //   (event: CustomEvent<EventDetail>) => {
@@ -27,5 +27,5 @@ const pomodoroEvent = new CustomEvent<EventDetail>("pomodoroEvent", {
 //   }
 // );
 
-// // Step 4: Dispatch the custom event
+//! Step 4: Dispatch the custom event
 // document.dispatchEvent(breakEvent);

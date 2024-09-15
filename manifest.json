@@ -6,7 +6,7 @@
 	"permissions": ["storage"],
 	"content_scripts": [
 		{
-			"js": ["scripts/storage.js", "scripts/events.js", "scripts/content.js"],
+			"js": ["scripts/storage.js", "scripts/content.js"],
 			"matches": ["*://*/*"]
 		}
 	],
@@ -18,7 +18,7 @@
 	},
 	"web_accessible_resources": [
 		{
-			"resources": ["img/goose_chomp.gif", "img/goose_run.gif", "img/goose_idle.gif"],
+			"resources": ["img/goose_chomp.gif", "img/goose_run.gif", "img/goose_idle.gif", "img/goose_dangling.gif"],
 			"matches": ["*://*/*"]
 		}
 	],

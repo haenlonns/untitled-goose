@@ -1,3 +1,22 @@
+interface EventDetail {
+	message: string;
+	time: Date;
+}
+
+const breakEvent = new CustomEvent<EventDetail>("breakEvent", {
+	detail: {
+		message: "Break Event Triggered",
+		time: new Date(),
+	},
+});
+
+const pomodoroEvent = new CustomEvent<EventDetail>("pomodoroEvent", {
+	detail: {
+		message: "Pomodoro Event Triggered",
+		time: new Date(),
+	},
+});
+
 interface Timer {
 	pomodoro: number;
 	shortBreak: number;
@@ -14,10 +33,18 @@ interface Timer {
 
 type Interval = number | undefined;
 
+// const timer: Timer = {
+// 	pomodoro: 25,
+// 	shortBreak: 5,
+// 	longBreak: 15,
+// 	longBreakInterval: 4,
+// 	sessions: 0,
+// };
+
 const timer: Timer = {
-	pomodoro: 25,
-	shortBreak: 5,
-	longBreak: 15,
+	pomodoro: 5 / 60,
+	shortBreak: 5 / 60,
+	longBreak: 5 / 60,
 	longBreakInterval: 4,
 	sessions: 0,
 };
@@ -109,7 +136,7 @@ function updateClock() {
 	document.title = `${minutes}:${seconds} — ${text}`;
 }
 
-function switchMode(mode) {
+function switchMode(mode: "pomodoro" | "shortBreak" | "longBreak") {
 	timer.mode = mode;
 	timer.remainingTime = {
 		total: timer[mode] * 60,
@@ -122,6 +149,12 @@ function switchMode(mode) {
 	document.body.style.backgroundColor = `var(--${mode})`;
 
 	updateClock();
+
+	if (mode === "pomodoro") {
+		document.dispatchEvent(pomodoroEvent);
+	} else {
+		document.dispatchEvent(breakEvent);
+	}
 }
 
 function handleMode(event) {
@@ -132,6 +165,18 @@ function handleMode(event) {
 	switchMode(mode);
 	stopTimer();
 }
+
+document.addEventListener("pomodoroEvent", (event: CustomEvent<EventDetail>) => {
+	console.log("Pomodoro mode triggered!");
+	console.log("Message:", event.detail.message);
+	console.log("Time:", event.detail.time);
+});
+
+document.addEventListener("breakEvent", (event: CustomEvent<EventDetail>) => {
+	console.log("Break mode triggered!");
+	console.log("Message:", event.detail.message);
+	console.log("Time:", event.detail.time);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
 	switchMode("pomodoro");
