@@ -5,7 +5,7 @@
 	"description": "GOOOOOOSE",
 	"content_scripts": [
 		{
-			"js": ["scripts/content.ts"],
+			"js": ["scripts/content.js"],
 			"matches": ["https://*/*", "http://*/*"]
 		}
 	],
