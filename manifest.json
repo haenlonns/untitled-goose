@@ -19,16 +19,10 @@
 	"web_accessible_resources": [
 		{
 			"resources": [
-				"img/goose_chomp.gif",
-				"img/goose_run.gif",
 				"img/goose_idle.gif",
-				"img/goose_dangling.gif",
-				"img/goose_walk_poop.gif"
+				"img/goose_dangling.gif"
 			],
 			"matches": ["*://*/*"]
 		}
-	],
-	"action": {
-		"default_popup": "popup.html"
-	}
+	]
 }
